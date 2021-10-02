@@ -10,9 +10,11 @@ admin.initializeApp(functions.config().firebase);
 // 배포는 firebase deploy --only functions
 // 요금든다 조심.
 exports.requestSync = functions.https.onRequest((request, response) => {
-  // var token = request["password"];
-  // if(token == 'plato'){
-  // }
+  const token = request.body["password"];
+  if (token != "password") {
+    response.send("password is incorrect.");
+    return;
+  }
   const message = {
     // notification: {
     //     title: '$FooCorp up 1.43% on the day',
