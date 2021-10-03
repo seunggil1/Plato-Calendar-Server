@@ -36,3 +36,24 @@ exports.requestSync = functions.https.onRequest((request, response) => {
   functions.logger.info("requestSync Log", {structuredData: true});
   response.send("Sync request is finished.");
 });
+
+exports.requestNotify = functions.https.onRequest((request, response) => {
+  const token = request.body["password"];
+  if (token != "plato") {
+    response.send("password is incorrect.");
+    return;
+  }
+  const message = {
+    data: {
+      func: "noti",
+    },
+    topic: "all",
+  };
+  admin.messaging().send(message).then((response) => {
+    console.log("Successfully sent message:", response);
+  }).catch((error) => {
+    console.log("Error sending message:", error);
+  });
+  functions.logger.info("requestSync Log", {structuredData: true});
+  response.send("Notify request is finished.");
+});
