@@ -15,18 +15,20 @@ from time import sleep
 # sudo kill 000
 kst = pytz.timezone('Asia/Seoul')
 pre = datetime(1990,1,1, tzinfo = kst)
-now = datetime.now(kst)
 
 lastNotifyDay = 0
 while True:
+    now = datetime.now(kst)
     print(now.__str__())
     if now.hour >= 8:
         if (now - pre).days * 60 * 60 * 24 + (now - pre).seconds >= 60 * 240 :
+            print("sync")
             response = requests.post('https://us-central1-plato-calendar.cloudfunctions.net/requestSync',
                 data= {"password":"password"}
             )
             pre = now
         if now.day != lastNotifyDay:
+            print("notifiy")
             response = requests.post('https://us-central1-plato-calendar.cloudfunctions.net/requestNotify',
                 data= {"password":"password"}
             )
