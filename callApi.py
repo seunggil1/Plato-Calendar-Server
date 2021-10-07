@@ -16,23 +16,20 @@ from time import sleep
 kst = pytz.timezone('Asia/Seoul')
 pre = datetime(1990,1,1, tzinfo = kst)
 
-lastNotifyDay = 0
 while True:
     now = datetime.now(kst)
     print(now.__str__())
     if now.hour >= 8:
-        if (now - pre).days * 60 * 60 * 24 + (now - pre).seconds >= 60 * 240 :
+        if (now - pre).days * 60 * 60 * 24 + (now - pre).seconds >= 60 * 60 : # 90분 sleep처리 했지만 혹시 모르니 버그 예방
             print("sync")
             response = requests.post('https://us-central1-plato-calendar.cloudfunctions.net/requestSync',
                 data= {"password":"password"}
             )
             pre = now
-        if now.day != lastNotifyDay:
-            print("notifiy")
-            response = requests.post('https://us-central1-plato-calendar.cloudfunctions.net/requestNotify',
-                data= {"password":"password"}
-            )
-            lastNotifyDay = now.day
-    sleep(60 * 60)
-
-print(1)
+        # if now.day != lastNotifyDay:
+        #     print("notifiy")
+        #     response = requests.post('https://us-central1-plato-calendar.cloudfunctions.net/requestNotify',
+        #         data= {"password":"password"}
+        #     )
+        #     lastNotifyDay = now.day
+    sleep(60 * 90) # 90분에 한번씩 보내기
