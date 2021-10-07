@@ -11,7 +11,7 @@ admin.initializeApp(functions.config().firebase);
 // 요금든다 조심.
 exports.requestSync = functions.https.onRequest((request, response) => {
   const token = request.body["password"];
-  if (token != "password") {
+  if (token != "plato") {
     response.send("password is incorrect.");
     return;
   }
@@ -29,11 +29,11 @@ exports.requestSync = functions.https.onRequest((request, response) => {
   };
   admin.messaging().send(message).then((response) => {
   // Response is a message ID string.
-    console.log("Successfully sent message:", response);
+    // console.log("Successfully sent message:", response);
   }).catch((error) => {
-    console.log("Error sending message:", error);
+    // console.log("Error sending message:", error);
   });
-  functions.logger.info("requestSync Log", {structuredData: true});
+  // functions.logger.info("requestSync Log", {structuredData: true});
   response.send("Sync request is finished.");
 });
 
@@ -50,10 +50,10 @@ exports.requestNotify = functions.https.onRequest((request, response) => {
     topic: "all",
   };
   admin.messaging().send(message).then((response) => {
-    console.log("Successfully sent message:", response);
+    // console.log("Successfully sent message:", response);
   }).catch((error) => {
-    console.log("Error sending message:", error);
+    // console.log("Error sending message:", error);
   });
-  functions.logger.info("requestSync Log", {structuredData: true});
+  // functions.logger.info("requestSync Log", {structuredData: true});
   response.send("Notify request is finished.");
 });
