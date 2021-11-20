@@ -25,16 +25,16 @@ exports.requestSync = functions.https.onRequest((request, response) => {
     },
 
     android: {
-      "ttl": "3540s",
+      "ttl": "3540s", // 3540초 이후 만료.
     },
 
     // apn == Apple Push Notification service
-    apns: {
-      headers: {
-        "apns-expiration": "3540",
-      },
-    },
-    
+    // apns: {
+    //   headers: {
+    //     "apns-expiration": "3540", // unix time으로 3540까지 유효함
+    //   },
+    // },
+
     topic: "all",
     // 이런 것도 가능
     // "condition": "'TopicA' in topics && 'TopicB' in topics"
@@ -63,13 +63,7 @@ exports.requestNotify = functions.https.onRequest((request, response) => {
     android: {
       "ttl": "3540s",
     },
-    
-    // apn == Apple Push Notification service
-    apns: {
-      headers: {
-        "apns-expiration": "3540",
-      },
-    },
+
     topic: "all",
   };
   admin.messaging().send(message).then((response) => {
@@ -99,13 +93,7 @@ exports.requestDebugSync = functions.https.onRequest((request, response) => {
     android: {
       "ttl": "3540s",
     },
-    
-    // apn == Apple Push Notification service
-    apns: {
-      headers: {
-        "apns-expiration": "3540",
-      },
-    },
+
     topic: "debug",
     // 이런 것도 가능
     // "condition": "'TopicA' in topics && 'TopicB' in topics"
