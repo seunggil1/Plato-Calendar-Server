@@ -23,6 +23,11 @@ exports.requestSync = functions.https.onRequest((request, response) => {
     data: {
       func: "sync",
     },
+    apns: {
+      headers: {
+        "apns-expiration": "3540",
+      },
+    },
     topic: "all",
     // 이런 것도 가능
     // "condition": "'TopicA' in topics && 'TopicB' in topics"
@@ -47,6 +52,11 @@ exports.requestNotify = functions.https.onRequest((request, response) => {
     data: {
       func: "noti",
     },
+    apns: {
+      headers: {
+        "apns-expiration": "3540",
+      },
+    },
     topic: "all",
   };
   admin.messaging().send(message).then((response) => {
@@ -56,4 +66,37 @@ exports.requestNotify = functions.https.onRequest((request, response) => {
   });
   // functions.logger.info("requestSync Log", {structuredData: true});
   response.send("Notify request is finished.");
+});
+
+exports.requestDebugSync = functions.https.onRequest((request, response) => {
+  const token = request.body["password"];
+  if (token != "plato") {
+    response.send("password is incorrect.");
+    return;
+  }
+  const message = {
+    // notification: {
+    //     title: '$FooCorp up 1.43% on the day',
+    //     body: '$FooCorp gained 11.80 points to close'
+    //   },
+    data: {
+      func: "sync",
+    },
+    apns: {
+      headers: {
+        "apns-expiration": "3540",
+      },
+    },
+    topic: "debug",
+    // 이런 것도 가능
+    // "condition": "'TopicA' in topics && 'TopicB' in topics"
+  };
+  admin.messaging().send(message).then((response) => {
+  // Response is a message ID string.
+    // console.log("Successfully sent message:", response);
+  }).catch((error) => {
+    // console.log("Error sending message:", error);
+  });
+  // functions.logger.info("requestSync Log", {structuredData: true});
+  response.send("Sync request is finished.");
 });
