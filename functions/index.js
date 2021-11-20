@@ -23,11 +23,18 @@ exports.requestSync = functions.https.onRequest((request, response) => {
     data: {
       func: "sync",
     },
+
+    android: {
+      "ttl": "3540s",
+    },
+
+    // apn == Apple Push Notification service
     apns: {
       headers: {
         "apns-expiration": "3540",
       },
     },
+    
     topic: "all",
     // 이런 것도 가능
     // "condition": "'TopicA' in topics && 'TopicB' in topics"
@@ -52,6 +59,12 @@ exports.requestNotify = functions.https.onRequest((request, response) => {
     data: {
       func: "noti",
     },
+
+    android: {
+      "ttl": "3540s",
+    },
+    
+    // apn == Apple Push Notification service
     apns: {
       headers: {
         "apns-expiration": "3540",
@@ -82,6 +95,12 @@ exports.requestDebugSync = functions.https.onRequest((request, response) => {
     data: {
       func: "sync",
     },
+
+    android: {
+      "ttl": "3540s",
+    },
+    
+    // apn == Apple Push Notification service
     apns: {
       headers: {
         "apns-expiration": "3540",
