@@ -24,9 +24,6 @@ exports.requestSync = functions.https.onRequest((request, response) => {
       func: "sync",
     },
 
-    android: {
-      "ttl": "3540s", // 3540초 이후 만료.
-    },
 
     // apn == Apple Push Notification service
     // apns: {
@@ -60,10 +57,6 @@ exports.requestNotify = functions.https.onRequest((request, response) => {
       func: "noti",
     },
 
-    android: {
-      "ttl": "3540s",
-    },
-
     topic: "all",
   };
   admin.messaging().send(message).then((response) => {
@@ -88,10 +81,6 @@ exports.requestDebugSync = functions.https.onRequest((request, response) => {
     //   },
     data: {
       func: "sync",
-    },
-
-    android: {
-      "ttl": "3540s",
     },
 
     topic: "debug",
