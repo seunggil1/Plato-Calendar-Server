@@ -15,6 +15,9 @@ from time import sleep
 # sudo kill 000
 kst = pytz.timezone('Asia/Seoul')
 pre = datetime(1990,1,1, tzinfo = kst)
+response = requests.post('https://us-central1-plato-calendar.cloudfunctions.net/requestDebugSync',
+                data= {"password":"password"}
+            )
 
 while True:
     now = datetime.now(kst)
