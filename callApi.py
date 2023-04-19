@@ -4,8 +4,6 @@ from datetime import datetime, tzinfo
 import pytz
 from time import sleep
 
-# use in azure vm machine
-# azure pw : rkdtmdrlf1plato!
 
 # chmod 755 callApi.py
 # nohup python3 -u callApi.py &
