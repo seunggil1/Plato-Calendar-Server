@@ -29,7 +29,7 @@ exports.requestSync = functions.https.onRequest((request, response) => {
     apns: {
       payload: {
         aps: {
-          contentAvailable: true,
+          contentAvailable: 1,
         },
       },
     },
@@ -74,7 +74,7 @@ exports.requestDebugSync = functions.https.onRequest((request, response) => {
     apns: {
       payload: {
         aps: {
-          contentAvailable: true,
+          contentAvailable: 1,
         },
       },
     },
@@ -84,10 +84,9 @@ exports.requestDebugSync = functions.https.onRequest((request, response) => {
   };
   admin.messaging().send(message).then((response) => {
     // Response is a message ID string.
-    console.log("Successfully sent message:", response);
+    response.send("Sync request is finished. : " + response.successCount);
   }).catch((error) => {
-    console.log("Error sending message:", error);
+    response.send("Sync request is failed. : " + error);
   });
   // functions.logger.info("requestSync Log", {structuredData: true});
-  response.send("Sync request is finished.");
 });
