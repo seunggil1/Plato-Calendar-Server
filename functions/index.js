@@ -29,7 +29,8 @@ exports.requestSync = functions.https.onRequest((request, response) => {
     apns: {
       payload: {
         aps: {
-          contentAvailable: 1,
+          content_available: 1,
+          mutable_content: 1,
         },
       },
     },
@@ -74,7 +75,8 @@ exports.requestDebugSync = functions.https.onRequest((request, response) => {
     apns: {
       payload: {
         aps: {
-          contentAvailable: 1,
+          content_available: 1,
+          mutable_content: 1,
         },
       },
     },
